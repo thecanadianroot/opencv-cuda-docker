@@ -1,4 +1,7 @@
-# opencv-cuda-docker
+# OpenCV CUDA Docker (and ROS)
+
+OpenCV compiled with CUDA support for Docker.
+
 Built and pushed to Dockerhub:
 
 |Ubuntu|CUDA|OpenCV|ROS|Tag|
