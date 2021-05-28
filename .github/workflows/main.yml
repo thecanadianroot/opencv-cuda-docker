@@ -1,28 +1,16 @@
-# This is a basic workflow to help you get started with Actions
+name: OpenCV CUDA Docker
 
-name: CI
-
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  build-ubuntu18_04-cuda10_2-opencv3_14_4:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v2
       
@@ -38,4 +26,23 @@ jobs:
           context: .
           push: true
           tags: thecanadianroot/opencv-cuda-docker:latest
-      
+          build-args: UBUNTU=18.04, CUDA=10.2, OPENCV=3.14.4
+  build-ubuntu20_04-cuda11_3-opencv4_5_2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: thecanadianroot/opencv-cuda-docker:latest
+          build-args: UBUNTU=20.04, CUDA=11.3.0, OPENCV=4.5.2
