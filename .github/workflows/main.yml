@@ -27,7 +27,10 @@ jobs:
           context: .
           push: true
           tags: thecanadianroot/opencv-cuda-docker:ubuntu18.04-cuda10.2-opencv3.4.14
-          build-args: UBUNTU=18.04, CUDA=10.2, OPENCV=3.4.14
+          build-args: |
+            UBUNTU=18.04
+            CUDA=10.2
+            OPENCV=3.4.14
 
   build-ubuntu20_04-cuda11_3-opencv4_5_2:
     name: Build OpenCV 4.5.2 with CUDA 11.3.0 on Ubuntu 20.04
@@ -48,4 +51,7 @@ jobs:
           context: .
           push: true
           tags: thecanadianroot/opencv-cuda-docker:ubuntu20.04-cuda11.3.0-opencv4.5.2
-          build-args: UBUNTU=20.04, CUDA=11.3.0, OPENCV=4.5.2
+          build-args: |
+            UBUNTU=20.04
+            CUDA=11.3.0
+            OPENCV=4.5.2
