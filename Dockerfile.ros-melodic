@@ -8,7 +8,7 @@ RUN apt update
 ## ROS CORE
 # setup timezone
 RUN echo 'Etc/UTC' > /etc/timezone && ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
-RUN apt install -q -y --no-install-recommends tzdata
+RUN DEBIAN_FRONTEND=noninteractive apt install -q -y --no-install-recommends tzdata
 
 # install packages
 RUN apt update && apt install -q -y --no-install-recommends dirmngr gnupg2

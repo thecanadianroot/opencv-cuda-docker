@@ -26,6 +26,8 @@ jobs:
         with:
           context: .
           push: true
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14
+          cache-to: type=inline
           tags: thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14
           build-args: |
             UBUNTU=18.04
@@ -38,6 +40,8 @@ jobs:
           context: .
           file: Dockerfile.ros-melodic
           push: true
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14-rosmelodic
+          cache-to: type=inline
           tags: thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14-rosmelodic
           build-args: |
             UBUNTU=18.04

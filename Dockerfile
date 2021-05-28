@@ -6,7 +6,8 @@ ARG OPENCV
 
 RUN apt update
 RUN apt dist-upgrade -y
-RUN apt install -y --no-install-recommends build-essential \
+RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends build-essential \
+    tzdata \
     cmake \
     gcc \
     gdb \
@@ -64,3 +65,4 @@ RUN mkdir opencv-${OPENCV}/build && \
     make install && \
     ldconfig
 RUN rm -rf /tmp/* && rm -rf /var/lib/apt/lists/*
+RUN apt autoremove -y
