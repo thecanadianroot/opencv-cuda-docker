@@ -3,8 +3,7 @@ name: OpenCV CUDA Docker
 on:
   push:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    
   workflow_dispatch:
 
 jobs:
@@ -32,9 +31,10 @@ jobs:
             CUDA=10.2
             OPENCV=3.4.14
 
-  build-ubuntu20_04-cuda11_3-opencv4_5_2:
-    name: Build OpenCV 4.5.2 with CUDA 11.3.0 on Ubuntu 20.04
+  build-ubuntu18_04-cuda10_2-opencv3_4_14-rosmelodic:
+    name: Build OpenCV 3.4.14 with CUDA 10.2 and ROS Melodic on Ubuntu 18.04
     runs-on: ubuntu-latest
+    needs: build-ubuntu18_04-cuda10_2-opencv3_4_14
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -49,9 +49,10 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          file: Dockerfile.ros-melodic
           push: true
-          tags: thecanadianroot/opencv-cuda-docker:ubuntu20.04-cuda11.3.0-opencv4.5.2
+          tags: thecanadianroot/opencv-cuda-docker:ubuntu18.04-cuda10.2-opencv3.4.14-ros-melodic
           build-args: |
-            UBUNTU=20.04
-            CUDA=11.3.0
-            OPENCV=4.5.2
+            UBUNTU=18.04
+            CUDA=10.2
+            OPENCV=3.4.14
