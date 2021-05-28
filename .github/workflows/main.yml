@@ -38,7 +38,7 @@ jobs:
           context: .
           file: Dockerfile.ros-melodic
           push: true
-          tags: thecanadianroot/opencv-cuda-docker:ubuntu18.04-cuda10.2-opencv3.4.14-ros-melodic
+          tags: thecanadianroot/opencv-cuda-docker:ubuntu18.04-cuda10.2-opencv3.4.14-rosmelodic
           build-args: |
             UBUNTU=18.04
             CUDA=10.2
