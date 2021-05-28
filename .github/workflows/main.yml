@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           
-      - name: Build and Push to Docker Hub
+      - name: Build and Push OpenCV CUDA to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -31,22 +31,8 @@ jobs:
             UBUNTU=18.04
             CUDA=10.2
             OPENCV=3.4.14
-
-  build-ubuntu18_04-cuda10_2-opencv3_4_14-rosmelodic:
-    name: Build OpenCV 3.4.14 with CUDA 10.2 and ROS Melodic on Ubuntu 18.04
-    runs-on: ubuntu-latest
-    needs: build-ubuntu18_04-cuda10_2-opencv3_4_14
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and Push to Docker Hub
+      
+      - name: Build and Push OpenCV CUDA ROS to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: .
