@@ -1,0 +1,54 @@
+ARG CUDA
+ARG UBUNTU
+ARG OPENCV
+FROM thecanadianroot/opencv-cuda-docker:ubuntu${UBUNTU}-cuda${CUDA}-opencv${OPENCV}
+
+RUN apt update
+### R O S   I N S T A L L
+## ROS CORE
+# setup timezone
+RUN echo 'Etc/UTC' > /etc/timezone && ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
+RUN apt install -q -y --no-install-recommends tzdata
+
+# install packages
+RUN apt update && apt install -q -y --no-install-recommends dirmngr gnupg2
+
+# setup keys
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+# setup sources.list
+RUN echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros1-latest.list
+
+# setup environment
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
+ENV ROS_DISTRO=melodic
+
+# install ros packages
+RUN apt update && apt install -y --no-install-recommends ros-melodic-ros-core=1.4.1-0*
+
+## ROS BASE
+# install bootstrap tools
+RUN apt update && apt install --no-install-recommends -y python-rosdep python-rosinstall python-vcstools
+
+# bootstrap rosdep
+RUN rosdep init && rosdep update --rosdistro $ROS_DISTRO
+
+# install ros packages
+RUN apt update && apt install -y --no-install-recommends ros-melodic-ros-base=1.4.1-0*
+
+## ROS PERCEPTION
+# install ros packages
+RUN apt update && apt-get install -y --no-install-recommends ros-melodic-perception=1.4.1-0*
+
+RUN apt remove -y ros-melodic-vision-opencv
+RUN apt -y install ros-melodic-cv-bridge
+
+COPY ros_entrypoint.sh /
+RUN chmod +x /ros_entrypoint.sh
+
+RUN apt autoremove -y && rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["bash"]
