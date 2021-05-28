@@ -45,9 +45,10 @@ RUN apt update && apt-get install -y --no-install-recommends ros-melodic-percept
 RUN apt remove -y ros-melodic-vision-opencv
 RUN apt -y install ros-melodic-cv-bridge
 
-RUN apt autoremove -y && rm -rf /var/lib/apt/lists/*
-
 COPY ros_entrypoint.sh /
+RUN chmod +x /ros_entrypoint.sh
+
+RUN apt autoremove -y && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
