@@ -6,7 +6,6 @@ FROM thecanadianroot/opencv-cuda:ubuntu${UBUNTU}-cuda${CUDA}-opencv${OPENCV}
 
 # Setup timezone
 ENV TZ=UTC
-RUN timedatectl set-timezone Etc/UTC
 
 RUN apt update
 ### R O S   I N S T A L L
