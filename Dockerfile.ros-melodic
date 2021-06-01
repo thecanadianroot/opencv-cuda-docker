@@ -3,11 +3,14 @@ ARG UBUNTU
 ARG OPENCV
 FROM thecanadianroot/opencv-cuda:ubuntu${UBUNTU}-cuda${CUDA}-opencv${OPENCV}
 
+
+# Setup timezone
+ENV TZ=UTC
+RUN timedatectl set-timezone Etc/UTC
+
 RUN apt update
 ### R O S   I N S T A L L
 ## ROS CORE
-# setup timezone
-RUN echo 'Etc/UTC' > /etc/timezone && ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
 RUN DEBIAN_FRONTEND=noninteractive apt install -q -y --no-install-recommends tzdata
 
 # install packages
