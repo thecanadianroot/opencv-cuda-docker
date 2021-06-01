@@ -1,7 +1,7 @@
 ARG CUDA
 ARG UBUNTU
 ARG OPENCV
-FROM thecanadianroot/opencv-cuda-docker:ubuntu${UBUNTU}-cuda${CUDA}-opencv${OPENCV}
+FROM thecanadianroot/opencv-cuda:ubuntu${UBUNTU}-cuda${CUDA}-opencv${OPENCV}
 
 RUN apt update
 ### R O S   I N S T A L L
