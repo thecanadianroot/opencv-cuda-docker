@@ -5,7 +5,6 @@ FROM nvidia/cuda:${CUDA}-devel-ubuntu${UBUNTU}
 ARG OPENCV
 
 RUN apt update
-RUN apt dist-upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends build-essential \
     tzdata \
     cmake \
@@ -64,4 +63,5 @@ RUN mkdir opencv-${OPENCV}/build && \
     make -j"$(nproc)" && \
     make install && \
     ldconfig
+
 RUN rm -rf /tmp/* && rm -rf /var/lib/apt/lists/*
