@@ -45,7 +45,7 @@ RUN apt update && apt install -y --no-install-recommends ros-melodic-ros-base=1.
 RUN apt update && apt-get install -y --no-install-recommends ros-melodic-perception=1.4.1-0*
 
 RUN apt remove -y ros-melodic-vision-opencv
-RUN apt -y install ros-melodic-cv-bridge
+RUN apt -y install ros-melodic-cv-bridge libxmlrpcpp-dev librosconsole-dev librospack-dev
 
 COPY ros_entrypoint.sh /
 RUN chmod +x /ros_entrypoint.sh
