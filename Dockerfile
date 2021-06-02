@@ -65,4 +65,3 @@ RUN mkdir opencv-${OPENCV}/build && \
     make install && \
     ldconfig
 RUN rm -rf /tmp/* && rm -rf /var/lib/apt/lists/*
-RUN apt autoremove -y
