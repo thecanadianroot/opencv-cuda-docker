@@ -51,3 +51,47 @@ jobs:
             UBUNTU=18.04
             CUDA=10.2
             OPENCV=3.4.14
+
+  build-ubuntu18_04-cuda11_3_0-opencv3_4_14:
+    name: Build OpenCV 3.4.14 with CUDA 11.3.0 on Ubuntu 18.04
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          
+      - name: Build and Push OpenCV CUDA to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14
+          cache-to: type=inline
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14
+            thecanadianroot/opencv-cuda:cuda-latest
+          build-args: |
+            UBUNTU=18.04
+            CUDA=11.3.0
+            OPENCV=3.4.14
+      
+      - name: Build and Push OpenCV CUDA ROS to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.ros-melodic
+          push: true
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14-rosmelodic
+          cache-to: type=inline
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14-rosmelodic
+            thecanadianroot/opencv-cuda:cuda-rosmelodic-latest
+          build-args: |
+            UBUNTU=18.04
+            CUDA=11.3.0
+            OPENCV=3.4.14
