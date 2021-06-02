@@ -28,7 +28,9 @@ jobs:
           push: true
           cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14
           cache-to: type=inline
-          tags: thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14
+            thecanadianroot/opencv-cuda:latest
           build-args: |
             UBUNTU=18.04
             CUDA=10.2
@@ -42,7 +44,9 @@ jobs:
           push: true
           cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14-rosmelodic
           cache-to: type=inline
-          tags: thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14-rosmelodic
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14-rosmelodic
+            thecanadianroot/opencv-cuda:rosmelodic-latest
           build-args: |
             UBUNTU=18.04
             CUDA=10.2
