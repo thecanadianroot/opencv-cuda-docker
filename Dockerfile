@@ -38,7 +38,7 @@ RUN apt install -y --no-install-recommends build-essential \
     python-dev \
     python-numpy \
     python3-dev \
-    python3-numpy
+    python3-numpy \
     ffmpeg \
     libavcodec-dev \
     libavformat-dev \
