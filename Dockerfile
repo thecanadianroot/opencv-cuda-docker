@@ -4,6 +4,8 @@ ARG OPENCV="3.4.14"
 
 FROM nvidia/cuda:${CUDA}-devel-ubuntu${UBUNTU}
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt update
 RUN apt dist-upgrade -y
 RUN apt install -y --no-install-recommends build-essential \
