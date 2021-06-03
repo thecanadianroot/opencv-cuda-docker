@@ -5,8 +5,8 @@ FROM nvidia/cuda:${CUDA}-devel-ubuntu${UBUNTU}
 ARG OPENCV
 
 RUN apt update
-RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends build-essential \
-    tzdata \
+RUN apt dist-upgrade -y
+RUN apt install -y --no-install-recommends build-essential \
     cmake \
     gcc \
     gdb \
@@ -38,7 +38,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends build-
     python-dev \
     python-numpy \
     python3-dev \
-    python3-numpy \
+    python3-numpy
     ffmpeg \
     libavcodec-dev \
     libavformat-dev \
@@ -57,6 +57,12 @@ RUN mkdir opencv-${OPENCV}/build && \
         -DCUDA_FAST_MATH=ON \
         -DWITH_CUBLAS=ON \
         -DOPENCV_ENABLE_NONFREE=ON \
+        -DWITH_GSTREAMER=OFF \
+        -DWITH_V4L=OFF \
+        -DWITH_GTK=OFF \
+        -DBUILD_TESTS=OFF \
+        -DBUILD_PERF_TESTS=OFF \
+        -DBUILD_EXAMPLES=OFF \
         -DCMAKE_BUILD_TYPE=RELEASE \
         -DCMAKE_INSTALL_PREFIX=/usr/local \
         .. && \
