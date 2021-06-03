@@ -12,6 +12,7 @@ RUN apt dist-upgrade -y
 RUN apt install -y --no-install-recommends build-essential \
     cmake \
     gcc \
+    g++ \
     gdb \
     git \
     wget \

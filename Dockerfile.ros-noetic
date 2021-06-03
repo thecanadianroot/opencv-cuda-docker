@@ -1,8 +1,7 @@
 ARG CUDA="11.3"
 ARG UBUNTU="20.04"
-FROM thecanadianroot/opencv-cuda:ubuntu${UBUNTU}-cuda${CUDA}-opencv${OPENCV}
-
 ARG OPENCV="4.5.2"
+FROM thecanadianroot/opencv-cuda:ubuntu${UBUNTU}-cuda${CUDA}-opencv${OPENCV}
 
 ENV DEBIAN_FRONTEND=noninteractive
 

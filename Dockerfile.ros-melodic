@@ -1,8 +1,7 @@
 ARG CUDA="10.2"
 ARG UBUNTU="18.04"
-FROM thecanadianroot/opencv-cuda:ubuntu${UBUNTU}-cuda${CUDA}-opencv${OPENCV}
-
 ARG OPENCV="3.4.14"
+FROM thecanadianroot/opencv-cuda:ubuntu${UBUNTU}-cuda${CUDA}-opencv${OPENCV}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
