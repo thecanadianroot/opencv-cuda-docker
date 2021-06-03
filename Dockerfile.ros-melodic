@@ -1,16 +1,12 @@
 ARG CUDA
-ARG UBUNTU
+ARG UBUNTU="18.04"
 ARG OPENCV
 FROM thecanadianroot/opencv-cuda:ubuntu${UBUNTU}-cuda${CUDA}-opencv${OPENCV}
 
-
-# Setup timezone
-ENV TZ=UTC
-
-RUN apt update
-### R O S   I N S T A L L
 ## ROS CORE
-RUN DEBIAN_FRONTEND=noninteractive apt install -q -y --no-install-recommends tzdata
+# setup timezone
+RUN echo 'Etc/UTC' > /etc/timezone && ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
+RUN apt update && apt install -q -y --no-install-recommends tzdata
 
 # install packages
 RUN apt update && apt install -q -y --no-install-recommends dirmngr gnupg2
@@ -45,7 +41,7 @@ RUN apt update && apt install -y --no-install-recommends ros-melodic-ros-base=1.
 RUN apt update && apt-get install -y --no-install-recommends ros-melodic-perception=1.4.1-0*
 
 RUN apt remove -y ros-melodic-vision-opencv
-RUN apt -y install ros-melodic-cv-bridge libxmlrpcpp-dev librosconsole-dev librospack-dev
+RUN apt -y install ros-melodic-cv-bridge
 
 COPY ros_entrypoint.sh /
 RUN chmod +x /ros_entrypoint.sh
