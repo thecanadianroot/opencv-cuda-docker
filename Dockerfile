@@ -1,8 +1,8 @@
-ARG CUDA
-ARG UBUNTU
+ARG CUDA="10.2"
+ARG UBUNTU="18.04"
+ARG OPENCV="3.4.14"
 
 FROM nvidia/cuda:${CUDA}-devel-ubuntu${UBUNTU}
-ARG OPENCV
 
 RUN apt update
 RUN apt dist-upgrade -y
@@ -14,6 +14,7 @@ RUN apt install -y --no-install-recommends build-essential \
     wget \
     unzip \
     yasm \
+    doxygen \
     pkg-config \
     checkinstall \
     libdc1394-22 \
@@ -30,6 +31,7 @@ RUN apt install -y --no-install-recommends build-essential \
     libtiff5-dev \
     zlib1g-dev \
     libjpeg-dev \
+    libgdal-dev \
     libeigen3-dev \
     libgflags-dev \
     libgoogle-glog-dev \
@@ -44,7 +46,15 @@ RUN apt install -y --no-install-recommends build-essential \
     libavformat-dev \
     libavutil-dev \
     libswscale-dev \
-    libavresample-dev
+    libavresample-dev \
+    libleptonica-dev \
+    libtesseract-dev \
+    libgtk-3-dev \
+    libgtk2.0-dev \
+    libvtk6-dev \
+    liblapack-dev \
+    libv4l-dev \
+    libhdf5-serial-dev
 
 WORKDIR /tmp
 RUN wget https://github.com/opencv/opencv/archive/refs/tags/${OPENCV}.zip && unzip ${OPENCV}.zip && rm ${OPENCV}.zip
@@ -58,11 +68,6 @@ RUN mkdir opencv-${OPENCV}/build && \
         -DWITH_CUBLAS=ON \
         -DOPENCV_ENABLE_NONFREE=ON \
         -DWITH_GSTREAMER=OFF \
-        -DWITH_V4L=OFF \
-        -DWITH_GTK=OFF \
-        -DBUILD_TESTS=OFF \
-        -DBUILD_PERF_TESTS=OFF \
-        -DBUILD_EXAMPLES=OFF \
         -DCMAKE_BUILD_TYPE=RELEASE \
         -DCMAKE_INSTALL_PREFIX=/usr/local \
         .. && \
