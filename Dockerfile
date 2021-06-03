@@ -1,8 +1,9 @@
 ARG CUDA="10.2"
 ARG UBUNTU="18.04"
-ARG OPENCV="3.4.14"
 
 FROM nvidia/cuda:${CUDA}-devel-ubuntu${UBUNTU}
+
+ARG OPENCV="3.4.14"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
