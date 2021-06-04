@@ -42,8 +42,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends ros-noetic-ros-
 # install ros packages
 RUN apt-get update && apt-get install -y --no-install-recommends ros-noetic-perception=1.5.0-1*
 
-RUN apt remove -y ros-melodic-vision-opencv
-RUN apt -y install ros-melodic-cv-bridge
+RUN apt remove -y ros-noetic-vision-opencv
+RUN apt -y install ros-noetic-cv-bridge
 
 COPY ros_entrypoint.sh /
 RUN chmod +x /ros_entrypoint.sh
