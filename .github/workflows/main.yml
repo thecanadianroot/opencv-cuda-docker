@@ -124,7 +124,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: Dockerfile.ros-melodic
+          file: Dockerfile.ros-noetic
           push: true
           cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.0-opencv4.5.2-rosnoetic
           cache-to: type=inline
