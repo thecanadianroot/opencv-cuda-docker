@@ -1,0 +1,143 @@
+name: OpenCV CUDA
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+
+jobs:
+  build-ubuntu18_04-cuda10_2-opencv3_4_14-arm64:
+    name: Build OpenCV 3.4.14 with CUDA 10.2 on Ubuntu 18.04 (ARM64)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push OpenCV CUDA to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14-arm64
+          cache-to: type=inline
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14-arm64
+          build-args: |
+            UBUNTU=18.04
+            CUDA=10.2
+            OPENCV=3.4.14
+            ARCH=-arm64
+
+      - name: Build and Push OpenCV CUDA ROS to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.ros-melodic
+          push: true
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14-arm64-rosmelodic
+          cache-to: type=inline
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu18.04-cuda10.2-opencv3.4.14-arm64-rosmelodic
+          build-args: |
+            UBUNTU=18.04
+            CUDA=10.2
+            OPENCV=3.4.14
+            ARCH=-arm64
+
+  build-ubuntu18_04-cuda11_3_0-opencv3_4_14-arm64:
+    name: Build OpenCV 3.4.14 with CUDA 11.3.0 on Ubuntu 18.04 (ARM64)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push OpenCV CUDA to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14-arm64
+          cache-to: type=inline
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14-arm64
+          build-args: |
+            UBUNTU=18.04
+            CUDA=11.3.0
+            OPENCV=3.4.14
+            ARCH=-arm64
+
+      - name: Build and Push OpenCV CUDA ROS to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.ros-melodic
+          push: true
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14-arm64-rosmelodic
+          cache-to: type=inline
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14-arm64-rosmelodic
+          build-args: |
+            UBUNTU=18.04
+            CUDA=11.3.0
+            OPENCV=3.4.14
+            ARCH=-arm64
+
+  build-ubuntu20_04-cuda11_3_0-opencv4_5_2-arm64:
+    name: Build OpenCV 4.5.2 with CUDA 11.3.0 on Ubuntu 20.04 (ARM64)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push OpenCV CUDA to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.0-opencv4.5.2-arm64
+          cache-to: type=inline
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.0-opencv4.5.2-arm64
+            thecanadianroot/opencv-cuda:arm64-latest
+          build-args: |
+            UBUNTU=20.04
+            CUDA=11.3.0
+            OPENCV=4.5.2
+            ARCH=-arm64
+
+      - name: Build and Push OpenCV CUDA ROS to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.ros-noetic
+          push: true
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.0-opencv4.5.2-arm64-rosnoetic
+          cache-to: type=inline
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.0-opencv4.5.2-arm64-rosnoetic
+            thecanadianroot/opencv-cuda:arm64-ros-latest
+          build-args: |
+            UBUNTU=20.04
+            CUDA=11.3.0
+            OPENCV=4.5.2
+            ARCH=-arm64

@@ -1,7 +1,8 @@
-ARG CUDA="10.2"
+ARG CUDA="11.3.0"
 ARG UBUNTU="18.04"
+ARG ARCH=""
 
-FROM nvidia/cuda:${CUDA}-devel-ubuntu${UBUNTU}
+FROM nvidia/cuda${ARCH}:${CUDA}-devel-ubuntu${UBUNTU}
 
 ARG OPENCV="3.4.14"
 
