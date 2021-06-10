@@ -51,7 +51,7 @@ jobs:
             OPENCV=3.4.14
 
   build-ubuntu18_04-cuda11_3_0-opencv3_4_14:
-    name: Build OpenCV 3.4.14 with CUDA 11.3.0 on Ubuntu 18.04
+    name: Build OpenCV 3.4.14 with CUDA 11.3.1 on Ubuntu 18.04
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -68,13 +68,13 @@ jobs:
         with:
           context: .
           push: true
-          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14
           cache-to: type=inline
           tags: |
-            thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14
+            thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14
           build-args: |
             UBUNTU=18.04
-            CUDA=11.3.0
+            CUDA=11.3.1
             OPENCV=3.4.14
       
       - name: Build and Push OpenCV CUDA ROS to Docker Hub
@@ -83,17 +83,17 @@ jobs:
           context: .
           file: Dockerfile.ros-melodic
           push: true
-          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14-rosmelodic
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
           cache-to: type=inline
           tags: |
-            thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.0-opencv3.4.14-rosmelodic
+            thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
           build-args: |
             UBUNTU=18.04
-            CUDA=11.3.0
+            CUDA=11.3.1
             OPENCV=3.4.14
 
   build-ubuntu20_04-cuda11_3_0-opencv4_5_2:
-    name: Build OpenCV 4.5.2 with CUDA 11.3.0 on Ubuntu 20.04
+    name: Build OpenCV 4.5.2 with CUDA 11.3.1 on Ubuntu 20.04
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -110,14 +110,14 @@ jobs:
         with:
           context: .
           push: true
-          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.0-opencv4.5.2
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2
           cache-to: type=inline
           tags: |
-            thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.0-opencv4.5.2
+            thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2
             thecanadianroot/opencv-cuda:latest
           build-args: |
             UBUNTU=20.04
-            CUDA=11.3.0
+            CUDA=11.3.1
             OPENCV=4.5.2
 
       - name: Build and Push OpenCV CUDA ROS to Docker Hub
@@ -126,12 +126,12 @@ jobs:
           context: .
           file: Dockerfile.ros-noetic
           push: true
-          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.0-opencv4.5.2-rosnoetic
+          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
           cache-to: type=inline
           tags: |
-            thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.0-opencv4.5.2-rosnoetic
+            thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
             thecanadianroot/opencv-cuda:ros-latest
           build-args: |
             UBUNTU=20.04
-            CUDA=11.3.0
+            CUDA=11.3.1
             OPENCV=4.5.2
