@@ -1,46 +1,32 @@
 version: "3.9"
 
 services:
-  opencv-cuda-docker-ubuntu18.04:
-    image: thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.1.14
+  ubuntu18.04-cuda11.0.3:
+    image: thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.0.3-opencv3.4.14
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        - CUDA=11.3.1
         - UBUNTU=18.04
+        - CUDA=11.0.3
         - OPENCV=3.4.14
 
-  opencv-cuda-docker-ros-melodic:
-    image: thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.1.14-rosmelodic
-    depends_on:
-      - opencv-cuda-docker-ubuntu18.04
-    build:
-      context: .
-      dockerfile: Dockerfile.ros-melodic
-      args:
-        - CUDA=11.3.1
-        - UBUNTU=18.04
-        - OPENCV=3.4.14
-
-  opencv-cuda-docker-ubuntu20.04:
-    image: thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.1.14
+  ubuntu18.04-cuda11.3.1:
+    image: thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14
     build:
       context: .
       dockerfile: Dockerfile
       args:
+        - UBUNTU=18.04
         - CUDA=11.3.1
-        - UBUNTU=20.04
-        - OPENCV=4.5.2
+        - OPENCV=3.4.14
 
-  opencv-cuda-docker-ros-noetic:
-    image: thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.1.14-rosnoetic
-    depends_on:
-      - opencv-cuda-docker-ubuntu20.04
+  ubuntu20.04-cuda11.3.1:
+    image: thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2
     build:
       context: .
-      dockerfile: Dockerfile.ros-noetic
+      dockerfile: Dockerfile
       args:
-        - CUDA=11.3.1
         - UBUNTU=20.04
+        - CUDA=11.3.1
         - OPENCV=4.5.2

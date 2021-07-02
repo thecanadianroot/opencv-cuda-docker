@@ -8,8 +8,7 @@ ARG OPENCV="3.4.14"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt update
-RUN apt install -y --no-install-recommends build-essential \
+RUN apt update && apt install -y --no-install-recommends build-essential \
     cmake \
     gcc \
     g++ \

@@ -1,24 +1,35 @@
 version: "3.9"
 
 services:
-  arm-18.04:
+  ubuntu18.04-cuda11.0.3:
+    image: thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.0.3-opencv3.4.14-arm64
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - ARCH=-arm64
+        - UBUNTU=18.04
+        - CUDA=11.0.3
+        - OPENCV=3.4.14
+
+  ubuntu18.04-cuda11.3.1:
     image: thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14-arm64
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        - CUDA=11.3.1
-        - UBUNTU=18.04
-        - OPENCV=3.4.14
         - ARCH=-arm64
+        - UBUNTU=18.04
+        - CUDA=11.3.1
+        - OPENCV=3.4.14
 
-  arm-20.04:
+  ubuntu20.04-cuda11.3.1:
     image: thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2-arm64
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        - CUDA=11.3.1
-        - UBUNTU=20.04
-        - OPENCV=4.5.2
         - ARCH=-arm64
+        - UBUNTU=20.04
+        - CUDA=11.3.1
+        - OPENCV=4.5.2
