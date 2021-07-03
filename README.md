@@ -8,9 +8,7 @@ OpenCV compiled with CUDA support for Docker.
 
 |Ubuntu|CUDA|OpenCV|ROS|Tag|
 |---|---|---|---|---|
-|18.04|11.0.3|3.4.14|N/A|`ubuntu18.04-cuda11.0.3-opencv3.4.14`|
 |18.04|11.3.1|3.4.14|N/A|`ubuntu18.04-cuda11.3.1-opencv3.4.14`|
-|18.04|11.0.3|3.4.14|Melodic|`ubuntu18.04-cuda11.0.3-opencv3.4.14-rosmelodic`|
 |18.04|11.3.1|3.4.14|Melodic|`ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic`|
 |20.04|11.3.1|4.5.2|N/A|`ubuntu20.04-cuda11.3.1-opencv4.5.2`<br>`latest`|
 |20.04|11.3.1|4.5.2|Noetic|`ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic`<br>`ros-latest`|
@@ -19,9 +17,7 @@ OpenCV compiled with CUDA support for Docker.
 
 |Ubuntu|CUDA|OpenCV|ROS|Tag|
 |---|---|---|---|---|
-|18.04|11.0.3|3.4.14|N/A|`ubuntu18.04-cuda11.0.3-opencv3.4.14-arm64`|
 |18.04|11.3.1|3.4.14|N/A|`ubuntu18.04-cuda11.3.1-opencv3.4.14-arm64`|
-|18.04|11.0.3|3.4.14|Melodic|`ubuntu18.04-cuda11.0.3-opencv3.4.14-arm64-rosmelodic`|
 |18.04|11.3.1|3.4.14|Melodic|`ubuntu18.04-cuda11.3.1-opencv3.4.14-arm64-rosmelodic`|
 |20.04|11.3.1|4.5.2|N/A|`ubuntu20.04-cuda11.3.1-opencv4.5.2-arm64`<br>`arm64-latest`|
 |20.04|11.3.1|4.5.2|Noetic|`ubuntu20.04-cuda11.3.1-opencv4.5.2-arm64-rosnoetic`<br>`arm64-ros-latest`|
