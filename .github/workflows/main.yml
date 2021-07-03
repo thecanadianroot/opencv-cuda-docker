@@ -53,10 +53,6 @@ jobs:
   build-ubuntu20_04:
     name: Build OpenCV 4.5.2 with CUDA 11.3.1 on Ubuntu 20.04
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        cuda: [ 11.3.1 ]
-        opencv: [ 4.5.2 ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
