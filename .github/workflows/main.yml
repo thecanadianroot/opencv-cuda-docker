@@ -33,7 +33,7 @@ jobs:
         with:
           context: .
           push: true
-          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14
+          cache-from: type=registry,ref=ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu18.04-cuda11.3.1-opencv3.4.14
           cache-to: type=inline
           tags: |
             thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14
@@ -49,7 +49,7 @@ jobs:
           context: .
           file: Dockerfile.ros-melodic
           push: true
-          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
+          cache-from: type=registry,ref=ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
           cache-to: type=inline
           tags: |
             thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
@@ -84,7 +84,7 @@ jobs:
         with:
           context: .
           push: true
-          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2
+          cache-from: type=registry,ref=ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu20.04-cuda11.3.1-opencv4.5.2
           cache-to: type=inline
           tags: |
             thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2
@@ -102,7 +102,7 @@ jobs:
           context: .
           file: Dockerfile.ros-noetic
           push: true
-          cache-from: type=registry,ref=thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
+          cache-from: type=registry,ref=ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
           cache-to: type=inline
           tags: |
             thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
