@@ -33,11 +33,11 @@ jobs:
         with:
           context: .
           push: true
-          cache-from: type=registry,ref=ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu18.04-cuda11.3.1-opencv3.4.14
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:ubuntu18.04-cuda11.3.1-opencv3.4.14
           cache-to: type=inline
           tags: |
             thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14
-            ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu18.04-cuda11.3.1-opencv3.4.14
+            ghcr.io/${{ github.repository }}:ubuntu18.04-cuda11.3.1-opencv3.4.14
           build-args: |
             UBUNTU=18.04
             CUDA=11.3.1
@@ -49,11 +49,11 @@ jobs:
           context: .
           file: Dockerfile.ros-melodic
           push: true
-          cache-from: type=registry,ref=ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
           cache-to: type=inline
           tags: |
             thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
-            ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
+            ghcr.io/${{ github.repository }}:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
           build-args: |
             UBUNTU=18.04
             CUDA=11.3.1
@@ -84,13 +84,13 @@ jobs:
         with:
           context: .
           push: true
-          cache-from: type=registry,ref=ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu20.04-cuda11.3.1-opencv4.5.2
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:ubuntu20.04-cuda11.3.1-opencv4.5.2
           cache-to: type=inline
           tags: |
             thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2
             thecanadianroot/opencv-cuda:latest
-            ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu20.04-cuda11.3.1-opencv4.5.2
-            ghcr.io/thecanadianroot/opencv-cuda-docker:latest
+            ghcr.io/${{ github.repository }}:ubuntu20.04-cuda11.3.1-opencv4.5.2
+            ghcr.io/${{ github.repository }}:latest
           build-args: |
             UBUNTU=20.04
             CUDA=11.3.1
@@ -102,13 +102,13 @@ jobs:
           context: .
           file: Dockerfile.ros-noetic
           push: true
-          cache-from: type=registry,ref=ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
           cache-to: type=inline
           tags: |
             thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
             thecanadianroot/opencv-cuda:ros-latest
-            ghcr.io/thecanadianroot/opencv-cuda-docker:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
-            ghcr.io/thecanadianroot/opencv-cuda-docker:ros-latest
+            ghcr.io/${{ github.repository }}:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
+            ghcr.io/${{ github.repository }}:ros-latest
           build-args: |
             UBUNTU=20.04
             CUDA=11.3.1
