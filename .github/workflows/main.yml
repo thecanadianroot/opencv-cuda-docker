@@ -20,9 +20,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          
+
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -33,8 +33,8 @@ jobs:
         with:
           context: .
           push: true
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:ubuntu18.04-cuda11.3.1-opencv3.4.14
-          cache-to: type=inline
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu18.04-cuda11.3.1-opencv3.4.14
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu18.04-cuda11.3.1-opencv3.4.14,mode=max
           tags: |
             thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14
             ghcr.io/${{ github.repository }}:ubuntu18.04-cuda11.3.1-opencv3.4.14
@@ -42,15 +42,15 @@ jobs:
             UBUNTU=18.04
             CUDA=11.3.1
             OPENCV=3.4.14
-      
+
       - name: Build and Push OpenCV CUDA ROS to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: .
           file: Dockerfile.ros-melodic
           push: true
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
-          cache-to: type=inline
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic,mode=max
           tags: |
             thecanadianroot/opencv-cuda:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
             ghcr.io/${{ github.repository }}:ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
@@ -73,7 +73,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -84,8 +84,8 @@ jobs:
         with:
           context: .
           push: true
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:ubuntu20.04-cuda11.3.1-opencv4.5.2
-          cache-to: type=inline
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.3.1-opencv4.5.2
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.3.1-opencv4.5.2,mode=max
           tags: |
             thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2
             thecanadianroot/opencv-cuda:latest
@@ -102,8 +102,8 @@ jobs:
           context: .
           file: Dockerfile.ros-noetic
           push: true
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
-          cache-to: type=inline
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic,mode=max
           tags: |
             thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
             thecanadianroot/opencv-cuda:ros-latest
