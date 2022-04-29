@@ -12,6 +12,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # See https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
 RUN apt-key del 7fa2af80
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/${NVIDIA_DISTRO}/3bf863cc.pub
+RUN rm /etc/apt/sources.list.d/nvidia-ml.list
 
 RUN apt update && apt install -y --no-install-recommends build-essential \
     cmake \
