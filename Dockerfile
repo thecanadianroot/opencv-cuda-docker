@@ -10,8 +10,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # See https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
 RUN apt-key del 7fa2af80
-RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb
-RUN dpkg -i cuda-keyring_1.0-1_all.deb
+RUN curl https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb --output cuda-keyring.deb
+RUN dpkg -i cuda-keyring.deb
 
 RUN apt update && apt install -y --no-install-recommends build-essential \
     cmake \
