@@ -32,6 +32,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          pull: true
           push: true
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu18.04-cuda11.3.1-opencv3.4.14
           cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu18.04-cuda11.3.1-opencv3.4.14,mode=max
@@ -42,12 +43,14 @@ jobs:
             UBUNTU=18.04
             CUDA=11.3.1
             OPENCV=3.4.14
+            NVIDIA_DISTRO=ubuntu1804/x86_64
 
       - name: Build and Push OpenCV CUDA ROS to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: .
           file: Dockerfile.ros-melodic
+          pull: true
           push: true
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic
           cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu18.04-cuda11.3.1-opencv3.4.14-rosmelodic,mode=max
@@ -83,6 +86,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          pull: true
           push: true
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.3.1-opencv4.5.2
           cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.3.1-opencv4.5.2,mode=max
@@ -95,12 +99,14 @@ jobs:
             UBUNTU=20.04
             CUDA=11.3.1
             OPENCV=4.5.2
+            NVIDIA_DISTRO=ubuntu2004/x86_64
 
       - name: Build and Push OpenCV CUDA ROS to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: .
           file: Dockerfile.ros-noetic
+          pull: true
           push: true
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic
           cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.3.1-opencv4.5.2-rosnoetic,mode=max
