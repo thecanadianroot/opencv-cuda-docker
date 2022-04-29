@@ -4,9 +4,14 @@ ARG ARCH=""
 
 FROM nvidia/cuda${ARCH}:${CUDA}-devel-ubuntu${UBUNTU}
 
+ARG NVIDIA_DISTRO="ubuntu1804/x86_64"
 ARG OPENCV="3.4.14"
 
 ENV DEBIAN_FRONTEND=noninteractive
+
+# See https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
+RUN apt-key del 7fa2af80
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/${NVIDIA_DISTRO}/3bf863cc.pub
 
 RUN apt update && apt install -y --no-install-recommends build-essential \
     cmake \
