@@ -6,13 +6,15 @@ FROM nvidia/cuda${ARCH}:${CUDA}-devel-ubuntu${UBUNTU}
 
 ARG NVIDIA_DISTRO="ubuntu1804/x86_64"
 ARG OPENCV="3.4.14"
+ARG CUDA_ARCH_BIN="5.2 5.3 6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6"
+ARG CUDA_ARCH_PTX="8.6"
+ARG CUDNN="OFF"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 # See https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
 RUN apt-key del 7fa2af80
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/${NVIDIA_DISTRO}/3bf863cc.pub
-RUN rm /etc/apt/sources.list.d/nvidia-ml.list
 
 RUN apt update && apt install -y --no-install-recommends build-essential \
     cmake \
@@ -73,10 +75,11 @@ RUN mkdir opencv-${OPENCV}/build && \
     cd opencv-${OPENCV}/build && \
     cmake -GNinja -DOPENCV_EXTRA_MODULES_PATH=/tmp/opencv_contrib-${OPENCV}/modules \
         -DWITH_CUDA=ON \
+        -DWITH_CUDNN=${CUDNN} \
         -DENABLE_FAST_MATH=ON \
         -DCUDA_FAST_MATH=ON \
-        -DCUDA_ARCH_BIN='5.2 5.3 6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6' \
-        -DCUDA_ARCH_PTX='8.6' \
+        -DCUDA_ARCH_BIN=${CUDA_ARCH_BIN} \
+        -DCUDA_ARCH_PTX=${CUDA_ARCH_PTX} \
         -DWITH_CUBLAS=ON \
         -DOPENCV_ENABLE_NONFREE=ON \
         -DWITH_GSTREAMER=OFF \

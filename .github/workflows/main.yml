@@ -18,7 +18,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Log in to Docker Hub
+      - name: Log in to Registries
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -31,7 +31,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push OpenCV CUDA to Docker Hub
+      - name: Build and Push OpenCV CUDA to Registries
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -48,7 +48,7 @@ jobs:
             OPENCV=3.4.14
             NVIDIA_DISTRO=ubuntu1804/x86_64
 
-      - name: Build and Push OpenCV CUDA ROS to Docker Hub
+      - name: Build and Push OpenCV CUDA ROS to Registries
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -75,7 +75,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Log in to Docker Hub
+      - name: Log in to Registries
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -88,7 +88,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push OpenCV CUDA to Docker Hub
+      - name: Build and Push OpenCV CUDA to Registries
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -98,16 +98,14 @@ jobs:
           cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.3.1-opencv4.5.2,mode=max
           tags: |
             thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.3.1-opencv4.5.2
-            thecanadianroot/opencv-cuda:latest
             ghcr.io/${{ github.repository }}:ubuntu20.04-cuda11.3.1-opencv4.5.2
-            ghcr.io/${{ github.repository }}:latest
           build-args: |
             UBUNTU=20.04
             CUDA=11.3.1
             OPENCV=4.5.2
             NVIDIA_DISTRO=ubuntu2004/x86_64
 
-      - name: Build and Push OpenCV CUDA ROS to Docker Hub
+      - name: Build and Push OpenCV CUDA ROS to Registries
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -125,3 +123,48 @@ jobs:
             UBUNTU=20.04
             CUDA=11.3.1
             OPENCV=4.5.2
+
+  build-latest-dnn:
+    name: Build latest OpenCV with CUDA DNN on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to Registries
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push OpenCV CUDA to Registries
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          pull: true
+          push: true
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.7.0-opencv4.6.0-dnn
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-ubuntu20.04-cuda11.7.0-opencv4.6.0-dnn,mode=max
+          tags: |
+            thecanadianroot/opencv-cuda:ubuntu20.04-cuda11.7.0-opencv4.6.0-dnn
+            thecanadianroot/opencv-cuda:latest-dnn
+            ghcr.io/${{ github.repository }}:ubuntu20.04-cuda11.7.0-opencv4.6.0-dnn
+            ghcr.io/${{ github.repository }}:latest-dnn
+          build-args: |
+            UBUNTU=20.04
+            CUDA=11.7.0
+            OPENCV=4.6.0
+            NVIDIA_DISTRO=ubuntu2004/x86_64
+            CUDA_ARCH_BIN="6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 9.0"
+            CUDA_ARCH_PTX="8.7"
+            CUDNN="ON"
