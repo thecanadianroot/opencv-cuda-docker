@@ -1,0 +1,89 @@
+ARG BASE_IMAGE
+FROM nvidia/cuda:${BASE_IMAGE}
+
+ARG OPENCV="4.7.0"
+ARG CUDA_ARCH_BIN="6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
+ARG CUDA_ARCH_PTX="8.9"
+ARG CUDNN="ON"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt update && apt install -y --no-install-recommends wget unzip git && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp
+RUN wget https://github.com/opencv/opencv/archive/refs/tags/${OPENCV}.zip && unzip ${OPENCV}.zip && rm ${OPENCV}.zip
+RUN wget https://github.com/opencv/opencv_contrib/archive/${OPENCV}.zip && unzip ${OPENCV}.zip && rm ${OPENCV}.zip
+
+RUN apt update && apt install -y --no-install-recommends build-essential \
+    cmake \
+    ccache \
+    ninja-build \
+    python3 \
+    python3-numpy \
+    python3-setuptools \
+    python3-pip \
+    python3-dev \
+    zlib1g-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libtiff5-dev \
+    libopenjp2-7-dev \
+    libgtk-3-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libswscale-dev \
+    libavresample-dev \
+    ant \
+    ant-optional \
+    default-jdk \
+    hdf5-tools \
+    libhdf5-dev \
+    liblept5 \
+    tesseract-ocr \
+    tesseract-ocr-eng \
+    libtesseract-dev \
+    libtesseract4 \
+    libgdal-dev \
+    libvtk7-dev \
+    libgoogle-glog-dev \
+    libatlas-base-dev \
+    libeigen3-dev \
+    libsuitesparse-dev \
+    liblapacke-dev \
+    libceres-dev \
+    libeigen3-dev \
+    libgtkglext1-dev \
+    libopenni2-dev \
+    libglfw3-dev \
+    xvfb \
+    pkg-config \
+    libgstreamer1.0-dev \
+    libgstreamer-plugins-base1.0-dev \
+    gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-ugly \
+    gstreamer1.0-libav \
+    libopenni2-dev \
+    libdc1394-22-dev \
+    libgphoto2-dev \
+    ffmpeg && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir opencv-${OPENCV}/build && \
+    cd opencv-${OPENCV}/build && \
+    cmake -GNinja -DOPENCV_EXTRA_MODULES_PATH=/tmp/opencv_contrib-${OPENCV}/modules \
+        -DWITH_CUDA=ON \
+        -DWITH_CUDNN=${CUDNN} \
+        -DENABLE_FAST_MATH=ON \
+        -DCUDA_FAST_MATH=ON \
+        -DCUDA_ARCH_BIN=${CUDA_ARCH_BIN} \
+        -DCUDA_ARCH_PTX=${CUDA_ARCH_PTX} \
+        -DWITH_CUBLAS=ON \
+        -DOPENCV_ENABLE_NONFREE=ON \
+        -DCMAKE_BUILD_TYPE=RELEASE \
+        -DCMAKE_INSTALL_PREFIX=/usr/local \
+        -DBUILD_opencv_apps=ON \
+        -DBUILD_opencv_python3=ON \
+        .. && \
+    ninja && \
+    ninja install && \
+    ldconfig && \
+    rm -rf /tmp/*
