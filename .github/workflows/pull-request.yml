@@ -1,10 +1,14 @@
-name: OpenCV CUDA
+name: Pull-Request - Build OpenCV CUDA Docker
 
 on:
   pull_request:
     types: [opened, synchronize, reopened ]
     branches: [ main ]
   workflow_dispatch:
+
+concurrency:
+  group: pull-request
+  cancel-in-progress: true
 
 jobs:
   build-opencv-cuda:
@@ -53,8 +57,8 @@ jobs:
           pull: true
           push: true
           tags: |
-            thecanadianroot/opencv-cuda:pr-${{ matrix.base }}
-            ghcr.io/${{ github.repository }}:pr-${{ matrix.base }}
+            thecanadianroot/opencv-cuda:pr-${{ github.event.pull_request.number }}-${{ matrix.base }}
+            ghcr.io/${{ github.repository }}:pr-${{ github.event.pull_request.number }}-${{ matrix.base }}
           build-args: |
             BASE_IMAGE=${{ matrix.base }}
             OPENCV=${{ matrix.opencv }}
