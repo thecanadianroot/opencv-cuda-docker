@@ -17,19 +17,19 @@ jobs:
     strategy:
       matrix:
         include:
-          - base: nvidia/cuda:12.0.0-devel-ubuntu22.04
+          - base-tag: 12.0.0-devel-ubuntu22.04
             opencv: 4.7.0
             dockerfile: Dockerfile.22.04
             arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
             arch-ptx: "8.9"
             cudnn: "ON"
-          - base: nvidia/cuda:12.0.0-runtime-ubuntu22.04
+          - base-tag: nvidia/cuda:12.0.0-runtime-ubuntu22.04
             opencv: 4.7.0
             dockerfile: Dockerfile.22.04
             arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
             arch-ptx: "8.9"
             cudnn: "ON"
-          - base: nvidia/cuda:12.0.0-base-ubuntu22.04
+          - base-tag: nvidia/cuda:12.0.0-base-ubuntu22.04
             opencv: 4.7.0
             dockerfile: Dockerfile.22.04
             arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
@@ -63,13 +63,13 @@ jobs:
           pull: true
           push: true
           tags: |
-            thecanadianroot/opencv-cuda:pr-${{ github.event.pull_request.number }}-${{ matrix.base }}
-            ghcr.io/${{ github.repository }}:pr-${{ github.event.pull_request.number }}-${{ matrix.base }}
+            thecanadianroot/opencv-cuda:pr-${{ github.event.pull_request.number }}-${{ matrix.base-tag }}
+            ghcr.io/${{ github.repository }}:pr-${{ github.event.pull_request.number }}-${{ matrix.base-tag }}
           build-args: |
-            BASE_IMAGE=${{ matrix.base }}
+            BASE_TAG=${{ matrix.base-tag }}
             OPENCV=${{ matrix.opencv }}
             CUDA_ARCH_BIN=${{ matrix.arch-bin }}
             CUDNN=${{ matrix.cudnn }}
             CUDA_ARCH_PTX=${{ matrix.arch-ptx }}
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-${{ matrix.base }}
-          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-${{ matrix.base }},mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-${{ matrix.base-tag }}
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-${{ matrix.base-tag }},mode=max
