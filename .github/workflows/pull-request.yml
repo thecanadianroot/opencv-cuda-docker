@@ -17,18 +17,24 @@ jobs:
     strategy:
       matrix:
         include:
-          - base: 12.0.0-devel-ubuntu22.04
-            cuda: 12.0.0
+          - base: nvidia/cuda:12.0.0-devel-ubuntu22.04
             opencv: 4.7.0
             dockerfile: Dockerfile.22.04
-#          - cuda: 12.0.0-devel-ubuntu20.04
-#            opencv: 4.7.0
-#            ubuntu: 20.04
-#            dockerfile: Dockerfile.20.04
-#          - cuda: 12.0.0-devel-ubuntu18.04
-#            opencv: 4.7.0
-#            ubuntu: 18.04
-#            dockerfile: Dockerfile.18.04
+            arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
+            arch-ptx: "8.9"
+            cudnn: "ON"
+          - base: nvidia/cuda:12.0.0-runtime-ubuntu22.04
+            opencv: 4.7.0
+            dockerfile: Dockerfile.22.04
+            arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
+            arch-ptx: "8.9"
+            cudnn: "ON"
+          - base: nvidia/cuda:12.0.0-base-ubuntu22.04
+            opencv: 4.7.0
+            dockerfile: Dockerfile.22.04
+            arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
+            arch-ptx: "8.9"
+            cudnn: "ON"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -62,5 +68,8 @@ jobs:
           build-args: |
             BASE_IMAGE=${{ matrix.base }}
             OPENCV=${{ matrix.opencv }}
+            CUDA_ARCH_BIN=${{ matrix.arch-bin }}
+            CUDNN=${{ matrix.cudnn }}
+            CUDA_ARCH_PTX=${{ matrix.arch-ptx }}
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-${{ matrix.base }}
           cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-${{ matrix.base }},mode=max
