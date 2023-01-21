@@ -18,18 +18,21 @@ jobs:
       matrix:
         include:
           - base-tag: 12.0.0-devel-ubuntu22.04
+            cuda: 12.0.0
             opencv: 4.7.0
             dockerfile: Dockerfile.22.04
             arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
             arch-ptx: "8.9"
             cudnn: "ON"
           - base-tag: nvidia/cuda:12.0.0-runtime-ubuntu22.04
+            cuda: 12.0.0
             opencv: 4.7.0
             dockerfile: Dockerfile.22.04
             arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
             arch-ptx: "8.9"
             cudnn: "ON"
           - base-tag: nvidia/cuda:12.0.0-base-ubuntu22.04
+            cuda: 12.0.0
             opencv: 4.7.0
             dockerfile: Dockerfile.22.04
             arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
