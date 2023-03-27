@@ -1,4 +1,4 @@
-name: Pull-Request - Build OpenCV CUDA Docker
+name: Pull-Request - Build OpenCV CUDA Docker on Ubuntu 18.04
 
 on:
   pull_request:
@@ -12,32 +12,31 @@ concurrency:
 
 jobs:
   build-opencv-cuda:
-    name: Build OpenCV ${{ matrix.opencv }} with CUDA ${{ matrix.cuda }} on Ubuntu ${{ matrix.ubuntu }}
+    name: Build OpenCV ${{ matrix.opencv }} with CUDA ${{ matrix.cuda }} on Ubuntu 18.04
     runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
-          - base-tag: 12.0.0-devel-ubuntu22.04
-            ubuntu: 22.04
-            cuda: 12.0.0
+          - ubuntu: 18.04
+            cuda: 12.1.0
             opencv: 4.7.0
-            dockerfile: Dockerfile.22.04
             arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
             arch-ptx: "8.9"
             cudnn: "ON"
-          - base-tag: 12.0.0-runtime-ubuntu22.04
-            ubuntu: 22.04
+          - ubuntu: 18.04
             cuda: 12.0.0
             opencv: 4.7.0
-            dockerfile: Dockerfile.22.04
             arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
             arch-ptx: "8.9"
             cudnn: "ON"
-          - base-tag: 12.0.0-base-ubuntu22.04
-            ubuntu: 22.04
-            cuda: 12.0.0
+          - ubuntu: 18.04
+            cuda: 11.8.0
             opencv: 4.7.0
-            dockerfile: Dockerfile.22.04
+            arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
+            arch-ptx: "8.9"
+            cudnn: "ON"
+          - cuda: 11.7.0
+            opencv: 4.7.0
             arch-bin: "6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9"
             arch-ptx: "8.9"
             cudnn: "ON"
@@ -65,17 +64,17 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ${{ matrix.dockerfile }}
+          file: Dockerfile.18.04
           pull: true
           push: true
           tags: |
-            thecanadianroot/opencv-cuda:pr-${{ github.event.pull_request.number }}-${{ matrix.base-tag }}
-            ghcr.io/${{ github.repository }}:pr-${{ github.event.pull_request.number }}-${{ matrix.base-tag }}
+            thecanadianroot/opencv-cuda:pr-${{ github.event.pull_request.number }}-${{ matrix.cuda }}-devel-ubuntu18.04
+            ghcr.io/${{ github.repository }}:pr-${{ github.event.pull_request.number }}-${{ matrix.cuda }}-devel-ubuntu18.04
           build-args: |
-            BASE_TAG=${{ matrix.base-tag }}
+            BASE_TAG=${{ matrix.cuda }}-devel-ubuntu18.04
             OPENCV=${{ matrix.opencv }}
             CUDA_ARCH_BIN=${{ matrix.arch-bin }}
             CUDNN=${{ matrix.cudnn }}
             CUDA_ARCH_PTX=${{ matrix.arch-ptx }}
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-${{ matrix.base-tag }}
-          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-${{ matrix.base-tag }},mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache-${{ matrix.cuda }}-devel-ubuntu18.04
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache-${{ matrix.cuda }}-devel-ubuntu18.04,mode=max
