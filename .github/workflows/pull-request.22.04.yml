@@ -99,7 +99,7 @@ jobs:
             thecanadianroot/opencv-cuda:pr-${{ github.event.pull_request.number }}-${{ matrix.cuda }}-cudnn8-devel-ubuntu22.04
             ghcr.io/${{ github.repository }}:pr-${{ github.event.pull_request.number }}-${{ matrix.cuda }}-cudnn8-devel-ubuntu22.04
           build-args: |
-            BASE_TAG=${{ matrix.cuda }}-cudnn8-devel-ubuntu22.04
+            BASE_TAG=${{ matrix.cuda }}-devel-ubuntu22.04
             OPENCV=${{ matrix.opencv }}
             CUDA_ARCH_BIN=${{ matrix.arch-bin }}
             CUDNN=${{ matrix.cudnn }}
