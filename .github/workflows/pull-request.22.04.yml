@@ -17,12 +17,13 @@ jobs:
     strategy:
       matrix:
         include:
-          - cuda: 12.1.0
-            opencv: 4.7.0
-            arch-bin: "5.0 5.2 5.3 6.0 6.1 6.2 7.0 7.5 8.0 8.6 8.9 9.0"
-            arch-ptx: "8.9"
-            cudnn: "ON"
-            platform: amd64
+          # AMD64
+#          - cuda: 12.1.0
+#            opencv: 4.7.0
+#            arch-bin: "5.0 5.2 5.3 6.0 6.1 6.2 7.0 7.5 8.0 8.6 8.9 9.0"
+#            arch-ptx: "8.9"
+#            cudnn: "ON"
+#            platform: amd64
           - cuda: 12.0.0
             opencv: 4.7.0
             arch-bin: "5.0 5.2 5.3 6.0 6.1 6.2 7.0 7.5 8.0 8.6 8.9 9.0"
@@ -41,13 +42,13 @@ jobs:
             arch-ptx: "8.6"
             cudnn: "ON"
             platform: amd64
-          # ARM
-          - cuda: 12.1.0
-            opencv: 4.7.0
-            arch-bin: "7.2 8.7 9.0a"
-            arch-ptx: "9.0a"
-            cudnn: "ON"
-            platform: arm64
+          # ARM64
+#          - cuda: 12.1.0
+#            opencv: 4.7.0
+#            arch-bin: "7.2 8.7 9.0a"
+#            arch-ptx: "9.0a"
+#            cudnn: "ON"
+#            platform: arm64
           - cuda: 12.0.0
             opencv: 4.7.0
             arch-bin: "7.2 8.7 9.0a"
@@ -87,7 +88,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push OpenCV CUDA to Registries
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         if: |
           matrix.cudnn == 'OFF'
         with:
@@ -109,7 +110,7 @@ jobs:
           platforms: linux/${{ matrix.platform }}
 
       - name: Build and Push OpenCV CUDA to Registries
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         if: |
           matrix.cudnn == 'ON'
         with:
